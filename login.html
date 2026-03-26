@@ -3,11 +3,8 @@
 <head>
   <title>Login Page</title>
   <style>
-    body { font-family: Arial; background: #f4f4f4; }
-    .login-box { width: 300px; margin: 100px auto; padding: 20px; background: white; border-radius: 8px; }
-    input { width: 100%; padding: 10px; margin: 10px 0; }
-    button { width: 100%; padding: 10px; background: #007BFF; color: white; border: none; }
-  </style>
+    @import "main.css";
+    </style>
 </head>
 <body>
   <div class="login-box">
@@ -16,6 +13,7 @@
       <input type="text" name="username" placeholder="Enter Username" required>
       <input type="password" name="password" placeholder="Enter Password" required>
       <button type="submit">Login</button>
+      <button type="button" onclick="window.location.href='signUp.html'">Sign up instead</button>
     </form>
   </div>
 </body>
