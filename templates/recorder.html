@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Audio Recorder & Transcriber</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    .container {
+      background: white;
+      border-radius: 10px;
+      padding: 40px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      max-width: 600px;
+      width: 100%;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .header h1 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+    
+    .header p {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .welcome {
+      background: #f0f0f0;
+      padding: 10px 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #555;
+    }
+    
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    
+    #startBtn {
+      background: #28a745;
+      color: white;
+    }
+    
+    #startBtn:hover:not(:disabled) {
+      background: #218838;
+      transform: translateY(-2px);
+    }
+    
+    #startBtn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    
+    #stopBtn {
+      background: #dc3545;
+      color: white;
+    }
+    
+    #stopBtn:hover:not(:disabled) {
+      background: #c82333;
+      transform: translateY(-2px);
+    }
+    
+    #stopBtn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    
+    #transcribeBtn {
+      background: #007BFF;
+      color: white;
+    }
+    
+    #transcribeBtn:hover:not(:disabled) {
+      background: #0056b3;
+      transform: translateY(-2px);
+    }
+    
+    #transcribeBtn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    
+    .recording-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .recording-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ddd;
+      animation: none;
+    }
+    
+    .recording-dot.active {
+      background: #dc3545;
+      animation: pulse 1s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .timer {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    
+    .playback {
+      margin-bottom: 30px;
+    }
+    
+    .playback label {
+      display: block;
+      margin-bottom: 10px;
+      color: #333;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    
+    audio {
+      width: 100%;
+      margin-top: 10px;
+    }
+    
+    .transcript-section {
+      margin-top: 30px;
+      padding-top: 30px;
+      border-top: 1px solid #eee;
+    }
+    
+    .transcript-section label {
+      display: block;
+      margin-bottom: 10px;
+      color: #333;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      resize: vertical;
+      min-height: 100px;
+    }
+    
+    textarea:focus {
+      outline: none;
+      border-color: #007BFF;
+      box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    }
+    
+    .status {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 5px;
+      display: none;
+      font-size: 14px;
+    }
+    
+    .status.success {
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+      display: block;
+    }
+    
+    .status.error {
+      background: #f8d7da;
+      border: 1px solid #f5c6cb;
+      color: #721c24;
+      display: block;
+    }
+    
+    .status.loading {
+      background: #d1ecf1;
+      border: 1px solid #bee5eb;
+      color: #0c5460;
+      display: block;
+    }
+    
+    .loading-spinner {
+      display: inline-block;
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎙️ Audio Recorder</h1>
+      <p>Record your voice and get it transcribed instantly</p>
+    </div>
+    
+    <div class="welcome">
+      Welcome, <strong>{{ username }}</strong>!
+    </div>
+    
+    <div class="recording-indicator">
+      <div class="recording-dot" id="recordingDot"></div>
+      <span id="recordingText">Ready to record</span>
+    </div>
+    
+    <div class="timer" id="timer">00:00</div>
+    
+    <div class="controls">
+      <button id="startBtn">🔴 Record</button>
+      <button id="stopBtn" disabled>⏹️ Stop</button>
+      <button id="transcribeBtn" disabled>✨ Transcribe</button>
+    </div>
+    
+    <div class="playback">
+      <label for="audioPlayback">Playback Recording:</label>
+      <audio id="audioPlayback" controls></audio>
+    </div>
+    
+    <div class="transcript-section">
+      <label for="transcript">Transcription:</label>
+      <textarea id="transcript" placeholder="Your transcription will appear here..." readonly></textarea>
+    </div>
+    
+    <div class="status" id="status"></div>
+  </div>
+
+  <script>
+    let mediaRecorder;
+    let audioChunks = [];
+    let recordingStartTime;
+    let timerInterval;
+
+    const startBtn = document.getElementById('startBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const transcribeBtn = document.getElementById('transcribeBtn');
+    const audioPlayback = document.getElementById('audioPlayback');
+    const transcript = document.getElementById('transcript');
+    const status = document.getElementById('status');
+    const recordingDot = document.getElementById('recordingDot');
+    const recordingText = document.getElementById('recordingText');
+    const timerDisplay = document.getElementById('timer');
+
+    function showStatus(message, type) {
+      status.textContent = message;
+      status.className = `status ${type}`;
+    }
+
+    function updateTimer() {
+      const elapsed = Math.floor((Date.now() - recordingStartTime) / 1000);
+      const minutes = String(Math.floor(elapsed / 60)).padStart(2, '0');
+      const seconds = String(elapsed % 60).padStart(2, '0');
+      timerDisplay.textContent = `${minutes}:${seconds}`;
+    }
+
+    startBtn.addEventListener('click', async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        audioChunks = [];
+
+        mediaRecorder.ondataavailable = (event) => {
+          audioChunks.push(event.data);
+        };
+
+        mediaRecorder.onstop = () => {
+          const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+          const audioUrl = URL.createObjectURL(audioBlob);
+          audioPlayback.src = audioUrl;
+          stream.getTracks().forEach(track => track.stop());
+        };
+
+        mediaRecorder.start();
+        recordingStartTime = Date.now();
+        timerInterval = setInterval(updateTimer, 1000);
+
+        startBtn.disabled = true;
+        stopBtn.disabled = false;
+        recordingDot.classList.add('active');
+        recordingText.textContent = 'Recording...';
+        transcript.value = '';
+        transcribeBtn.disabled = true;
+        status.className = 'status';
+
+        showStatus('Recording in progress...', 'loading');
+      } catch (error) {
+        showStatus('Error: Could not access microphone. Please check permissions.', 'error');
+      }
+    });
+
+    stopBtn.addEventListener('click', () => {
+      mediaRecorder.stop();
+      clearInterval(timerInterval);
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+      recordingDot.classList.remove('active');
+      recordingText.textContent = 'Recording stopped';
+      transcribeBtn.disabled = false;
+      showStatus('Recording saved. Click "Transcribe" to convert to text.', 'success');
+    });
+
+    transcribeBtn.addEventListener('click', async () => {
+      if (audioChunks.length === 0) {
+        showStatus('No audio recorded. Please record something first.', 'error');
+        return;
+      }
+
+      const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+      const formData = new FormData();
+      formData.append('audio', audioBlob, 'recording.webm');
+
+      showStatus('🔄 Transcribing audio...', 'loading');
+      transcribeBtn.disabled = true;
+
+      try {
+        const response = await fetch('/upload_audio', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          transcript.value = data.transcript;
+          showStatus('✅ Transcription completed successfully!', 'success');
+        } else {
+          showStatus(`Error: ${data.error}`, 'error');
+        }
+      } catch (error) {
+        showStatus(`Error: ${error.message}`, 'error');
+      } finally {
+        transcribeBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

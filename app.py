@@ -1,3 +1,4 @@
+"""
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
@@ -7,7 +8,7 @@ users = {"admin": "1234", "user": "abcd"}
 
 @app.route("/")
 def home():
-    return render_template("login.html")
+    return render_template("UI.html")
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -21,3 +22,4 @@ def login():
 
 if __name__ == "__main__":
     app.run(debug=True)
+"""
