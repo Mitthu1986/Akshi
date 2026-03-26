@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html> 
     <head> <title> ACCESSIBILITY APP </title>
-        <link rel="stylesheet" href="manyata.css">
+        
          <link rel="stylesheet" href="kriti.css">
+         <link rel="stylesheet" href="manyata.css">
+         
      </head>
 
     <body>
         <header>
             <h1>ACCESSIBILITY APP</h1>
             <!--HIGH CONTRAST-->
-            <button id="contrast-btn"> Toggle contrast </button> 
+            <div style="text-align: center;">
+                <button> Toggle contrast </button> 
+            </div>
         </header>
 
         <main>
            <!--TEXT TO SPEECH (VOICE NAVIGATION)-->
             <section>
                 <h2>Text to speech</h2>
+            <div class="input-group">
                 <textarea placeholder="Enter text"></textarea>
                 <button>Speak</button>
                 <button>Clear text</button>
+            </div>
             </section>
 
             <!--TEXT MAGNIFIER-->
