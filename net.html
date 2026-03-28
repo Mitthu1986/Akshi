@@ -29,7 +29,15 @@ display the name of the file below the placeholder.
 
         <section>
             <h2>upload content</h2>
-            <input type="file" accept="video/*" onchange="uploadVideo(this.files[0])">
+            
+            <div id="video-upload-placeholder" class="video-placeholder">
+                <p style="font-size: 24px; margin: 20px 0;">📹 Click to upload video</p>
+                <p style="font-size: 14px; color: #00D9FF;">Supported formats: MP4, WebM, MOV</p>
+            </div>
+            
+            <input type="file" id="video-input" accept="video/*" style="display: none;">
+            
+            <p id="file-name-display" style="text-align: center; margin-top: 20px; color: #39ff14; font-weight: bold;"></p>
         </section>
           <!--  <section>
                 <h2>Text magnifier</h2>
@@ -40,6 +48,27 @@ display the name of the file below the placeholder.
 
   <a href="home.html">
     <button> Back</button>
-</a>
+  </a>
+
+  <script>
+    // Get elements
+    const videoPlaceholder = document.getElementById('video-upload-placeholder');
+    const videoInput = document.getElementById('video-input');
+    const fileNameDisplay = document.getElementById('file-name-display');
+
+    // When placeholder is clicked, trigger the file input
+    videoPlaceholder.addEventListener('click', function() {
+      videoInput.click();
+    });
+
+    // When a file is selected, display its name
+    videoInput.addEventListener('change', function(event) {
+      if (event.target.files && event.target.files[0]) {
+        const fileName = event.target.files[0].name;
+        fileNameDisplay.textContent = '✓ Selected: ' + fileName;
+        fileNameDisplay.style.color = '#39ff14';
+      }
+    });
+  </script>
 
   </body>
