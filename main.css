@@ -125,24 +125,43 @@ h3{
     margin-bottom: 12px;
 }
 
-.sidebar {
-    position: fixed;   
-    left: 0;
-    top: 0;
-    width: 200px;
-    height: 100vh;
-    background-color: #111;
-    padding: 20px;
-}
-
-.sidebar button {
-    display: block;
-    width: 100%;
-    margin: 10px 0;
-}
-
-.community {
+.nav-box {
+    flex: 1;
+    height: 45px;
+    padding-top: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 195px;
+    margin: 8px 0;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    background: rgba(255, 255, 255, 0.05);  
+    backdrop-filter: blur(10px);           
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: 0.3s;
     
+}
+
+.sidebar {
+   position: fixed; 
+   left: 0;
+   top: 0;
+   width: 200px;
+   height: 100vh;
+   padding: 20px;
+   background-color: #101010;
+   display: flex;
+   flex-direction: column;
+}
+
+.sidebar h2 {
+    text-align: center;
+}
+.community {
+
 }
 
 /* Video Upload Placeholder */
