@@ -1,0 +1,45 @@
+<!--
+Make a placeholder for uploading videos, give the placeholder a neon green border and a neon blue background. 
+When the user clicks on the placeholder, it should open a file dialog to select a video file. Once a video is selected, 
+display the name of the file below the placeholder.
+-->
+
+
+<!DOCTYPE html>
+<html> 
+    <head> <title> STAY CONNECTED </title>
+        
+         <link rel="stylesheet" href="main.css">
+     </head>
+
+    <body>
+         <header>
+            <h1>STAY CONNECTED</h1>
+            <div style="text-align: center;">
+               <!-- <button> Toggle contrast </button> -->
+                <div id="heyy">
+                    <button id="learn-btn">I want to learn</button>
+                    <button id="teach-btn">I want to teach</button>
+                    <br> <br>
+                    <input placeholder="Enter text">
+                    <button id="find-btn">Connect with people</button>
+                </div>
+            </div>
+        </header>
+
+        <section>
+            <h2>upload content</h2>
+            <input type="file" accept="video/*" onchange="uploadVideo(this.files[0])">
+        </section>
+          <!--  <section>
+                <h2>Text magnifier</h2>
+                <p id="normal-text">This is some sample text. Select any part of this text and click magnify.</p>
+                <button onclick="magnifyText()">Magnify</button>
+                <p id="magnified-output">Magnified text will appear here....</p>
+            </section>  -->
+
+  <a href="home.html">
+    <button> Back</button>
+</a>
+
+  </body>

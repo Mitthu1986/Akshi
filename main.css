@@ -94,6 +94,12 @@ body {
     height: 40px;
 }
 
+h1{
+    color: #33532e; /* neon green for main title */
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
 
 h2{
     color: #00FFFF; /* neon blue for maintitles */
