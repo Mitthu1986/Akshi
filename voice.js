@@ -22,7 +22,6 @@ function initVoiceCommands() {
 }
 
 window.onload = initVoiceCommands;
-window.offload = stopVoiceCommands;
 
 
 document.addEventListener("voiceCommand", function(e) {
