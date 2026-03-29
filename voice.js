@@ -47,9 +47,9 @@ document.addEventListener("voiceCommand", function(e) {
     navigateToPage("home.html");
   } else if(command.includes("camera")||command.includes("real time")||command.includes("object detection")) {
     navigateToPage("cam.html");
-  } else if(command.includes("learn")||command.includes("learning")) {
+  } /*else if(command.includes("learn")||command.includes("learning")) {
     navigateToPage("learn.html");
-  } else if(command.includes("teach")||command.includes("teaching")) {
+  }*/ else if(command.includes("teach")||command.includes("teaching")) {
     navigateToPage("teach.html");
   } else if(command.includes("network")||command.includes("networking")||command.includes("community")) {
     navigateToPage("net.html");
@@ -59,7 +59,7 @@ document.addEventListener("voiceCommand", function(e) {
     navigateToPage("liked.html");
   } else if(command.includes("saved")) {
     navigateToPage("saved.html");
-  } else if(command.includes("braille")) {
+  } else if(command.includes("learn") || command.includes("braille") || command.includes("braille keyboard") || command.includes("braille guide")) {
     navigateToPage("br.html");
   } else if(command.includes("login")) {
     navigateToPage("login.html");
