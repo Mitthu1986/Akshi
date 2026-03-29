@@ -42,7 +42,27 @@ document.addEventListener("voiceCommand", function(e) {
   } else if(command.includes("magnify")||command.includes("zoom in")||command.includes("enlarge")||command.includes("increase font")||command.includes("make text bigger")||command.includes("magnify text")||command.includes("enlarge text")||command.includes("zoom in text")) {
     magnifyText();
   } else if(command.includes("home")) {
-    window.location.href = "/home.html";
+    navigateToPage("home.html");
+  } else if(command.includes("camera")||command.includes("real time")||command.includes("object detection")) {
+    navigateToPage("cam.html");
+  } else if(command.includes("learn")||command.includes("learning")) {
+    navigateToPage("learn.html");
+  } else if(command.includes("teach")||command.includes("teaching")) {
+    navigateToPage("teach.html");
+  } else if(command.includes("network")||command.includes("networking")||command.includes("community")) {
+    navigateToPage("net.html");
+  } else if(command.includes("news")) {
+    navigateToPage("news.html");
+  } else if(command.includes("liked")||command.includes("favorites")||command.includes("saved items")) {
+    navigateToPage("liked.html");
+  } else if(command.includes("saved")) {
+    navigateToPage("saved.html");
+  } else if(command.includes("braille")) {
+    navigateToPage("br.html");
+  } else if(command.includes("login")) {
+    navigateToPage("login.html");
+  } else if(command.includes("sign up")||command.includes("signup")||command.includes("register")) {
+    navigateToPage("signUp.html");
   } else if(command.includes("stop listening")) {
     stopVoiceCommands();
   } else if(command.includes("repeat")){
@@ -73,6 +93,12 @@ function magnifyText() {
   body.style.fontSize = (currentSize + 2) + "px";
 }
 
+function navigateToPage(page) {
+  const currentPath = window.location.pathname;
+  const basePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+  window.location.href = basePath + '/' + page;
+}
+
 /*function readAloud() {
   const text = document.body.innerText;
   const utterance = new SpeechSynthesisUtterance(text);
@@ -89,7 +115,7 @@ function readAloud() {
 
 function commandLog() {
  const utterance = new SpeechSynthesisUtterance();
-  utterance.text = "Say magnify to increase text size, say read the page aloud to have the content read to you, say stop listening to stop voice navigation, and say start listening to start voice navigation................say repeat to hear these commands again.";
+  utterance.text = "Available voice commands: Say magnify to increase text size. Say read the page aloud to have content read to you. Say home to go to home page. Say learn to go to learning page. Say teach to go to teaching page. Say camera for real-time object detection. Say network or community to access networking. Say news for news page. Say liked for favorites. Say saved for saved items. Say braille for braille keyboard. Say login or sign up to access account pages. Say stop listening to stop voice navigation. Say repeat to hear these commands again.";
   speechSynthesis.speak(utterance);
-
 }
+
