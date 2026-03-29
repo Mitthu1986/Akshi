@@ -41,6 +41,8 @@ document.addEventListener("voiceCommand", function(e) {
    readAloud(); 
   } else if(command.includes("magnify")||command.includes("zoom in")||command.includes("enlarge")||command.includes("increase font")||command.includes("make text bigger")||command.includes("magnify text")||command.includes("enlarge text")||command.includes("zoom in text")) {
     magnifyText();
+  } else if(command.includes("back")||command.includes("go back")||command.includes("return")||command.includes("go home")) {
+    navigateToPage("home.html");
   } else if(command.includes("home")) {
     navigateToPage("home.html");
   } else if(command.includes("camera")||command.includes("real time")||command.includes("object detection")) {
@@ -115,7 +117,7 @@ function readAloud() {
 
 function commandLog() {
  const utterance = new SpeechSynthesisUtterance();
-  utterance.text = "Available voice commands: Say magnify to increase text size. Say read the page aloud to have content read to you. Say home to go to home page. Say learn to go to learning page. Say teach to go to teaching page. Say camera for real-time object detection. Say network or community to access networking. Say news for news page. Say liked for favorites. Say saved for saved items. Say braille for braille keyboard. Say login or sign up to access account pages. Say stop listening to stop voice navigation. Say repeat to hear these commands again.";
+  utterance.text = "Available voice commands: Say magnify to increase text size. Say read the page aloud to have content read to you. Say back or go back to return to home page. Say home to go to home page. Say learn to go to learning page. Say teach to go to teaching page. Say camera for real-time object detection. Say network or community to access networking. Say news for news page. Say liked for favorites. Say saved for saved items. Say braille for braille keyboard. Say login or sign up to access account pages. Say stop listening to stop voice navigation. Say repeat to hear these commands again.";
   speechSynthesis.speak(utterance);
 }
 
