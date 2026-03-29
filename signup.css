@@ -1,0 +1,74 @@
+/* Background setup */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    /* Navy Blue Gradient: Deep Navy to Blackish Navy */
+    background: radial-gradient(circle, #001f3f 0%, #000c1d 100%);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Card styling */
+.signup-box {
+    background: rgba(255, 255, 255, 0.03); /* Transparent look */
+    padding: 40px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 320px;
+    text-align: center;
+}
+
+.brand-name {
+    color: #a0f0f0; /* Image wala cyan color */
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+/* Input styling with proper borders */
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid #445566; /* Image jaisa subtle border */
+    border-radius: 4px;
+    color: white;
+    box-sizing: border-box;
+    outline: none;
+}
+
+input:focus {
+    border-color: #a0f0f0; /* Focus pe glow */
+}
+
+/* Buttons */
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background-color: #a0f0f0;
+    border: none;
+    border-radius: 4px;
+    color: #1a2a3a;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-secondary {
+    width: 100%;
+    padding: 11px;
+    background-color: transparent;
+    border: 1px solid #a0f0f0;
+    border-radius: 4px;
+    color: #a0f0f0;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+::placeholder {
+    color: #8899aa;
+}
