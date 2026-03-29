@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Braille Keyboard — Akshi</title>
+  <meta name="description" content="Learn braille with an interactive keyboard interface. Practice braille dot patterns with accessible guides.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="br.css">
+  <script>
+    try{
+      const path = window.location.pathname.split('/').pop();
+      if(localStorage.getItem('aurasense_logged_in') !== 'true' && path !== 'index.html' && path !== ''){
+        window.location.replace('index.html');
+      }
+    }catch(e){/* ignore */}
+  </script>
+</head>
+<body>
+  <header role="banner">
+    <div class="container">
+      <a class="logo" href="home.html" aria-label="Akshi home">Akshi</a>
+    </div>
+  </header>
+
+  <main id="main" class="container" role="main" tabindex="-1">
+    <section class="alphabet-grid" aria-labelledby="letters-heading">
+      <h1>Braille Keyboard</h1>
+      <p class="lead">Learn braille by selecting dots in the braille keyboard format.</p>
+      <p class="hint">Click the dots to select positions, or use your keyboard for accessibility.</p>
+      
+      <h2 id="letters-heading">Braille Dots</h2>
+      <p id="output" class="output-text">Click dots to start...</p>
+      <div class="circular-cards">
+        <a href="#" class="circular-card" aria-label="top dot 1">top dot 1</a>
+        <a href="#" class="circular-card" aria-label="top dot 4">top dot 4</a>
+        <a href="#" class="circular-card" aria-label="middle dot 2">middle dot 2</a>
+        <a href="#" class="circular-card" aria-label="middle dot 5">middle dot 5</a>
+        <a href="#" class="circular-card" aria-label="bottom dot 3">bottom dot 3</a>
+        <a href="#" class="circular-card" aria-label="bottom dot 6">bottom dot 6</a>
+      </div>
+      
+      <div style="text-align: center;">
+        <button id="reset-dots" class="reset-btn">Reset Dots</button>
+        <button id="id-alpha" class="id-alpha-btn">Identify Alphabet</button>
+      </div>
+    </section>
+    
+    <p style="text-align: center; margin-top: 30px;"><a class="cta ghost" href="home.html">Back to home</a></p>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Akshi</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
